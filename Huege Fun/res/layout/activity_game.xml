@@ -1,0 +1,94 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+   <!--  android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" 
+    tools:context=".MainActivity" --> 
+
+	<TableLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_centerInParent="true"
+	    android:stretchColumns="*"
+	    tools:ignore="UselessParent" >
+
+    	<TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" >
+    		<Button
+        		android:id="@+id/buttonRed"
+        		android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@color/red"
+                android:paddingBottom="1dp"
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                android:paddingTop="1dp"/>
+
+    		<Button
+        		android:id="@+id/buttonYellow"
+        		android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@color/yellow"
+                android:padding="1dp"/>
+		</TableRow>
+		<TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+    	
+    		<Button
+        		android:id="@+id/buttonBlue"
+        		android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@color/blue"
+                android:paddingBottom="1dp"
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                android:paddingTop="1dp"/>
+
+    		<Button
+        		android:id="@+id/buttonGreen"
+        		android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@color/green"
+                android:paddingBottom="1dp"
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                android:paddingTop="1dp"/>
+
+    		<!--  <TextView
+        		android:id="@+id/textView1"
+       	 		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:layout_alignLeft="@+id/buttonRed"
+        		android:layout_alignParentTop="true"
+        		android:layout_marginTop="26dp"
+        		android:text="@string/gameText" /> -->
+
+    		 
+    	</TableRow>
+
+    	<TableRow
+    	    android:id="@+id/tableRow3"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="1dp"
+    	    android:background="@android:color/background_dark" >
+
+    		<TextView android:id="@+id/feedback" />
+    	</TableRow>
+    </TableLayout>
+    
+</RelativeLayout>
