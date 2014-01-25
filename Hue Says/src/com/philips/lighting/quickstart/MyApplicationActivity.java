@@ -89,6 +89,17 @@ public class MyApplicationActivity extends Activity {
     	Log.d("trafficLight", "orange set");
     	lightsController.setColor("green", 3000, false);
     	Log.d("trafficLight", "green set");
+    	
+    	// First Command
+    	lightsController.setColor("red", 3000, false);
+    	lightsController.setOff();
+    	try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
     }
 
     public void randomLights() {

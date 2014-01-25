@@ -125,7 +125,18 @@ public class LightsController {
 		}
 
 	}
-
+	
+	public void setOff(){
+		PHLightState lightState = new PHLightState();
+		lightState.setOn(false);
+	
+	}
+	
+	public void setOn(){
+		PHLightState lightState = new PHLightState();
+		lightState.setOn(true);
+	}
+	
 	// If you want to handle the response from the bridge, create a
 	// PHLightListener object.
 	PHLightListener listener = new PHLightListener() {
