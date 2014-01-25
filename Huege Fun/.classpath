@@ -3,7 +3,7 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
-	<classpathentry kind="lib" path="C:/androidworkspace/Huege Fun/libs/amazon-ads-5.1.40.jar"/>
+	<classpathentry kind="lib" path="C:/adt-bundle-windows-x86_64-20130917/Apps-SDK/Android/Ads/lib/amazon-ads-5.1.40.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="output" path="bin/classes"/>

@@ -11,18 +11,17 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class FailActivity extends Activity
-{
-	
+public class FailActivity extends Activity {
+
 	@Override
-    protected void onCreate(Bundle savedInstanceState)
-	{
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gameover);
-        
-        TextView tv = (TextView) findViewById( R.id.textView1 );
-        Typeface face = Typeface.createFromAsset(getAssets(),
-                    "fonts/KBREINDEERGAMES.ttf");
-        tv.setTypeface(face); tv.setTextSize(250);
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_gameover);
+
+		TextView tv = (TextView) findViewById(R.id.textView1);
+		Typeface face = Typeface.createFromAsset(getAssets(),
+				"fonts/KBREINDEERGAMES.ttf");
+		tv.setTypeface(face);
+		tv.setTextSize(250);
 	}
 }
