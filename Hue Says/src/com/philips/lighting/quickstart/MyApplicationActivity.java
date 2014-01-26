@@ -3,6 +3,8 @@ package com.philips.lighting.quickstart;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.app.Activity;
 import android.content.Context;
@@ -34,7 +36,12 @@ public class MyApplicationActivity extends Activity implements MotionRecognizerD
     private static final int MAX_HUE=65535;
     public static final String TAG = "QuickStart";
     private LightsController lightsController;
-    private List<Activity> activities;
+    private Action currentAction;
+    private Random random = new Random();
+    
+    private int score = 0;
+    private int maxActions = 5;
+    private int actionCount = 0;
     
     private String mAccelText;
     private String mOrientationText;
@@ -108,7 +115,7 @@ public class MyApplicationActivity extends Activity implements MotionRecognizerD
 					public void run() {
 						//trafficLight();
 						startGame();
-						lightsController.success();
+						//lightsController.success();
 						
 					}
 				};
@@ -147,41 +154,14 @@ public class MyApplicationActivity extends Activity implements MotionRecognizerD
     }
     
     public void startGame() {
-    	Random random = new Random();
-    	for (int i=0; i<5; i++) {
-    		
-    		Action action = randomAction(random.nextInt(Action.all().size()));
-    		Log.d("ACTION", action.toString());
-    		Log.d("action" + action.getColor().toString(), "dsdf");
-	    	lightsController.setColor(action.getColor(), 3000, false);
-	    	try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    	}
+    	trafficLight();
+    	nextAction();
     }
     
     private Action randomAction(int r) {
     	return Action.all().get(r);
     }
 
-    public void randomLights() {
-        PHBridge bridge = phHueSDK.getSelectedBridge();
-
-        List<PHLight> allLights = bridge.getResourceCache().getAllLights();
-        Random rand = new Random();
-        
-        for (PHLight light : allLights) {
-            PHLightState lightState = new PHLightState();
-            lightState.setHue(rand.nextInt(MAX_HUE));
-            // To validate your lightstate is valid (before sending to the bridge) you can use:  
-            // String validState = lightState.validateState();
-            bridge.updateLightState(light, lightState, listener);
-            //  bridge.updateLightState(light, lightState);   // If no bridge response is required then use this simpler form.
-        }
-    }
     // If you want to handle the response from the bridge, create a PHLightListener object.
     PHLightListener listener = new PHLightListener() {
         
@@ -219,6 +199,58 @@ public class MyApplicationActivity extends Activity implements MotionRecognizerD
     @Override
     public void jumped() {
         mToneGenerator.startTone(ToneGenerator.TONE_PROP_PROMPT);
+        if(currentAction.getName() == "Jump") {
+        	incrementScore();
+        } else {
+        	decrementScore();
+        }
+    }
+    
+    private void incrementScore() {
+    	score++;
+    	lightsController.setColor(HueColor.GREEN, 1000, false);
+    	nextAction();
+    }
+    
+    private void decrementScore() {
+    	score--;
+    	nextAction();
+    }
+    
+    private void nextAction() {
+    	Log.d("nextAction", "SCORE IS: " + score);
+    	if(maxActions < actionCount) {
+    		endGame();
+    	} else {
+    		actionCount++;
+    		currentAction = randomAction(random.nextInt(Action.all().size()));
+    		Log.d("ACTION", currentAction.toString());
+    		Log.d("action" + currentAction.getColor().toString(), "dsdf");
+	    	lightsController.setColor(currentAction.getColor(), 0, false);
+	    	// Timer 3 seconds before calling decrementScore();
+	    	Timer t = new Timer();  
+
+			TimerTask task = new TimerTask() {
+
+				@Override
+				public void run() {
+					runOnUiThread(new Runnable() {
+
+						@Override
+						public void run() {
+							nextAction();
+						}
+					});
+				}
+			};
+	    	  
+	    	  t.scheduleAtFixedRate(task, 0, 3000);
+    	}
+    }
+    
+    private void endGame() {
+    	// Whatever
+    	System.exit(0);
     }
 
     @Override

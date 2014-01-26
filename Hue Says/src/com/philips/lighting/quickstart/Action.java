@@ -22,9 +22,9 @@ public class Action {
 	public static List<Action> all() {
 		List<Action> activityList = new ArrayList<Action>();
 		activityList.add(JUMP);
-		activityList.add(SPIN);
-		activityList.add(TURNRIGHT);
-		activityList.add(TURNLEFT);
+//		activityList.add(SPIN);
+//		activityList.add(TURNRIGHT);
+//		activityList.add(TURNLEFT);
 		
 		return activityList;
 		
@@ -32,6 +32,11 @@ public class Action {
 
 	public HueColor getColor() {
 		return color;
+	}
+	
+
+	public String getName() {
+		return name;
 	}
 
 	@Override
