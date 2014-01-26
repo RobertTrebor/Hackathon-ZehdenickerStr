@@ -30,6 +30,7 @@ public class MyApplicationActivity extends Activity {
     private static final int MAX_HUE=65535;
     public static final String TAG = "QuickStart";
     private LightsController lightsController;
+    private List<Activity> activities;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,32 @@ public class MyApplicationActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				getLightInfo();
+				//getLightInfo();
+				Runnable runnable = new Runnable() {
+					
+					@Override
+					public void run() {
+						for (int i=0; i<10; i++) {
+							lightsController.setOneOn();
+							try {
+								Thread.sleep(200);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							lightsController.setOneOff();
+							try {
+								Thread.sleep(50);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+						
+					}
+				};
+				Thread myThread = new Thread(runnable);
+				myThread.start();
 			}
 
 		});
@@ -58,8 +84,18 @@ public class MyApplicationActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				trafficLight();
+				Runnable runnable = new Runnable() {
+					
+					@Override
+					public void run() {
+						//trafficLight();
+						startGame();
+						lightsController.success();
+						
+					}
+				};
+				Thread myThread = new Thread(runnable);
+				myThread.start();
 			}
 		});
         
@@ -82,24 +118,35 @@ public class MyApplicationActivity extends Activity {
 	}
     
     public void trafficLight() {
+    	
     	Log.d("trafficLight", "before sending commands");
-    	lightsController.setColor("red", 3000, false);
+    	lightsController.setColor(HueColor.RED, 1000, false);
     	Log.d("trafficLight", "red set");
-    	lightsController.setColor("orange", 3000, false);
+    	lightsController.setColor(HueColor.ORANGE, 1000, false);
     	Log.d("trafficLight", "orange set");
-    	lightsController.setColor("green", 3000, false);
+    	lightsController.setColor(HueColor.GREEN, 1000, false);
     	Log.d("trafficLight", "green set");
-    	
-    	// First Command
-    	lightsController.setColor("red", 3000, false);
-    	lightsController.setOff();
-    	try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	
+    }
+    
+    public void startGame() {
+    	Random random = new Random();
+    	for (int i=0; i<5; i++) {
+    		
+    		Action action = randomAction(random.nextInt(Action.all().size()));
+    		Log.d("ACTION", action.toString());
+    		Log.d("action" + action.getColor().toString(), "dsdf");
+	    	lightsController.setColor(action.getColor(), 3000, false);
+	    	try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    }
+    
+    private Action randomAction(int r) {
+    	return Action.all().get(r);
     }
 
     public void randomLights() {
