@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Random;
 
 import android.app.Activity;
+import android.content.Context;
+import android.hardware.SensorManager;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,12 +29,19 @@ import com.philips.lighting.model.PHLightState;
  * @author SteveyO
  *
  */
-public class MyApplicationActivity extends Activity {
+public class MyApplicationActivity extends Activity implements MotionRecognizerDelegate {
     private PHHueSDK phHueSDK;
     private static final int MAX_HUE=65535;
     public static final String TAG = "QuickStart";
     private LightsController lightsController;
     private List<Activity> activities;
+    
+    private String mAccelText;
+    private String mOrientationText;
+
+    private MotionRecognizer mMotionRecognizer;
+    private ToneGenerator mToneGenerator = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
+
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,6 +52,13 @@ public class MyApplicationActivity extends Activity {
         
         lightsController = new LightsController();
         
+        
+        mMotionRecognizer = new MotionRecognizer(this);
+        mMotionRecognizer.onCreate((SensorManager) getSystemService(Context.SENSOR_SERVICE));
+
+        mAccelText = "";
+        mOrientationText = "";
+
         Button btnTutorial;
         btnTutorial = (Button) findViewById(R.id.btnTutorial);
         btnTutorial.setOnClickListener(new OnClickListener() {
@@ -54,14 +72,14 @@ public class MyApplicationActivity extends Activity {
 					@Override
 					public void run() {
 						for (int i=0; i<10; i++) {
-							lightsController.setOneOn();
+							lightsController.setOn();
 							try {
 								Thread.sleep(200);
 							} catch (InterruptedException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-							lightsController.setOneOff();
+							lightsController.setOff();
 							try {
 								Thread.sleep(50);
 							} catch (InterruptedException e) {
@@ -181,6 +199,28 @@ public class MyApplicationActivity extends Activity {
         }
     };
     
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mMotionRecognizer.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mMotionRecognizer.onResume();
+    }
+
+    @Override
+    public void turnedAround() {
+        mToneGenerator.startTone(ToneGenerator.TONE_PROP_ACK);
+    }
+
+    @Override
+    public void jumped() {
+        mToneGenerator.startTone(ToneGenerator.TONE_PROP_PROMPT);
+    }
+
     @Override
     protected void onDestroy() {
         PHBridge bridge = phHueSDK.getSelectedBridge();

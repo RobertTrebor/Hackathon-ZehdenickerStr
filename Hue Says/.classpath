@@ -7,7 +7,5 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="libs/huelocalsdk.jar"/>
 	<classpathentry kind="lib" path="libs/sdkresources.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Tyler Durden/Downloads/PhilipsHueSDK-Java-MultiPlatform-Android-master/PhilipsHueSDK-Java-MultiPlatform-Android-master/QuickStartApp/libs/huelocalsdk.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Tyler Durden/Downloads/PhilipsHueSDK-Java-MultiPlatform-Android-master/PhilipsHueSDK-Java-MultiPlatform-Android-master/QuickStartApp/libs/sdkresources.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

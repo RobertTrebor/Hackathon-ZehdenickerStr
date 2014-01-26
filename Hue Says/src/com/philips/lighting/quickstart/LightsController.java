@@ -21,12 +21,12 @@ import com.philips.lighting.hue.sdk.PHHueSDK;
 
 public class LightsController {
 
-	//private PHBridge bridge;
+	private PHBridge bridge;
 	private PHHueSDK phHueSDK;
 
 	private PHLightAlertMode alertMode;
-	PHBridge bridge = phHueSDK.getSelectedBridge();
-	PHBridgeResourcesCache cache = bridge.getResourceCache();
+	//PHBridge bridge = phHueSDK.getSelectedBridge();
+//	PHBridgeResourcesCache cache = bridge.getResourceCache();
 	private List<PHLight> allLights;
 
 	private static final int MAX_HUE = 65535;
@@ -145,22 +145,22 @@ public class LightsController {
 		bridge.setLightStateForGroup("Hackathon", lightState);
 	}
 
-	public void setOneOn() {
-		List<PHLight> allLights = cache.getAllLights();
-		PHLightState lightState = new PHLightState();
-		lightState.setOn(true);
-		lightState.setTransitionTime(0);
-		//bridge.setLightStateForGroup("Hackathon", lightState);
-		bridge.updateLightState(allLights.get(2), lightState);
-	}
-	public void setOneOff() {
-		List<PHLight> allLights = cache.getAllLights();
-		PHLightState lightState = new PHLightState();
-		lightState.setOn(false);
-		lightState.setTransitionTime(0);
-		//bridge.setLightStateForGroup("Hackathon", lightState);
-		bridge.updateLightState(allLights.get(2), lightState);
-	}
+//	public void setOneOn() {
+//		List<PHLight> allLights = cache.getAllLights();
+//		PHLightState lightState = new PHLightState();
+//		lightState.setOn(true);
+//		lightState.setTransitionTime(0);
+//		//bridge.setLightStateForGroup("Hackathon", lightState);
+//		bridge.updateLightState(allLights.get(2), lightState);
+//	}
+//	public void setOneOff() {
+//		List<PHLight> allLights = cache.getAllLights();
+//		PHLightState lightState = new PHLightState();
+//		lightState.setOn(false);
+//		lightState.setTransitionTime(0);
+//		//bridge.setLightStateForGroup("Hackathon", lightState);
+//		bridge.updateLightState(allLights.get(2), lightState);
+//	}
 	
 	public void setAlert() {
 		alertMode = PHLightAlertMode.ALERT_SELECT;
